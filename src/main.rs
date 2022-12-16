@@ -19,6 +19,12 @@ macro_rules! println_tagged_warning {
     }
 }
 
+macro_rules! println_tagged_info {
+    ($($arg:tt)*) => {
+        println!("{}: {}", "info".green(), format!($($arg)*))
+    }
+}
+
 #[repr(C)]
 #[derive(Debug, Clone)]
 struct MessageHeader {
@@ -69,6 +75,7 @@ fn main() {
         println_tagged_warning!("no address specified, using {}", DEFAULT_ADDRESS);
         DEFAULT_ADDRESS
     };
+    println_tagged_info!("started remote terminal at {}!", address);
 
     let socket = match net::UdpSocket::bind(address) {
         Ok(s) => s,
