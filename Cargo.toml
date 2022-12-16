@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 bytemuck = "1.12.3"
 colored = "2.0.0"
+indoc = "1.0.7"

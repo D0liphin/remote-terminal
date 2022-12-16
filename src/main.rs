@@ -4,6 +4,7 @@ use std::io;
 use std::io::Write;
 use std::mem::{size_of, transmute};
 use std::net;
+use indoc::indoc;
 
 /// Prints an error to the user of this application
 macro_rules! println_tagged_error {
@@ -68,7 +69,22 @@ fn main() {
     let address = if args.len() >= 2 {
         let arg = args[1].trim_end_matches(|c: char| c.is_whitespace() || c == '\'' || c == '"');
         match arg {
-            "help" => unimplemented!("no help page yet!"),
+            "help" => {
+                println!(
+                    "{}",
+                    indoc! {r#"
+                        Remote terminal host for use with rtc
+                        
+                        USAGE:
+                            remote-terminal [ADDRESS]?
+                        
+                        ADDRESS:
+                            address is a valid IP address to start this host on, defaults to
+                            127.0.0.1:7777, which is what rtc_println! prints to.
+                    "#}
+                );
+                std::process::exit(1);
+            }
             _ => arg,
         }
     } else {
